@@ -1,7 +1,13 @@
 <div class="flex flex-col items-center justify-center h-screen">
-    <img src="assets/quizania.svg" class="logo">    
-    <a routerLink="/init" class="block max-w-sm px-6 py-4 bg-white rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 init_button">
-        Ingresar
-    </a>    
+    <img src="./assets/quizania.svg" class="logo">    
+    <p class="text-2xl font-bold mt-10 mb-10">Select a category to start:</p>
+    <div class="grid grid-cols-4 gap-6">
+        @for (category of categories; track $index) {
+            <div class="bg-blue-600 text-center shadow-xl hover:bg-blue-700 text-white font-bold py-8 px-8 rounded">
+                <img src="./assets/icons/{{category.icon}}.svg" width="50" height="50" class="mx-auto">
+                <a href="/quiz/{{category.id}}" class="text-center">{{category.name}}</a>
+            </div>
+        }
+    </div>
 </div>
     
