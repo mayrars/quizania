@@ -11,7 +11,7 @@ export class ApiService {
   getCategories():Observable<any> {
     return this._http.get(`${this.baseURL}/api_category.php`);
   }
-  getQuestions():Observable<any> {
-    return this._http.get(`${this.baseURL}api.php?amount=10`);
+  getQuestions(category:number):Observable<any> {
+    return this._http.get(`${this.baseURL}api.php?amount=10&category=${category}`);
   }
 }
