@@ -22,10 +22,13 @@ export class HomeComponent implements OnInit {
         return {
           id: item.id,
           name: item.name,
-          color: `bg-${this.colors[item.id % this.colors.length]}-${this.range[item.id % this.range.length]}`,
+          color: `rgb(${this.getRandomNumber(0, 255)},${this.getRandomNumber(0, 255)},${this.getRandomNumber(0, 255)})`,
           icon:item.name.toLowerCase().replace(/\s/g, '').replace(":","")
         }
       })
     })
+  }
+  getRandomNumber(min:number, max:number) {
+    return Math.random() * (max - min) + min
   }
 }

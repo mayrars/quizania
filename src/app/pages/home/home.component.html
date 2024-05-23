@@ -1,13 +1,15 @@
-<div class="flex flex-col items-center justify-center h-screen">
-    <img src="./assets/quizania.svg" class="logo">    
-    <p class="text-2xl font-bold mt-10 mb-10">Select a category to start:</p>
-    <div class="grid grid-cols-4 gap-6">
-        @for (category of categories; track $index) {
-            <div class="bg-blue-600 text-center shadow-xl hover:bg-blue-700 text-white font-bold py-8 px-8 rounded">
-                <img src="./assets/icons/{{category.icon}}.svg" width="50" height="50" class="mx-auto">
-                <a href="/quiz/{{category.id}}" class="text-center">{{category.name}}</a>
-            </div>
-        }
+<div class="container mx-auto px-4 py-5 mt-4">
+    <div class="flex flex-col items-center justify-center h-screen">
+        <img src="./assets/quizania.svg" class="logo">    
+        <p class="text-2xl font-bold mt-10 mb-10 text-white">Select a category to start:</p>
+        <div class="grid grid-cols-5 gap-6">
+            @for (category of categories; track $index) {
+                <a href="/category/{{category.id}}" class="text-center shadow-xl hover_button text-white font-bold py-6 px-8 rounded custom-card" style="background: {{category.color}};">
+                    <img src="./assets/icons/{{category.icon}}.svg" width="50" height="50" class="mx-auto mb-2">
+                    <p class="text-center text-2xl title">{{category.name}}</p>
+                </a>
+            }
+        </div>
     </div>
 </div>
     
