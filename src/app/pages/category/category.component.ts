@@ -18,7 +18,6 @@ export class CategoryComponent implements OnInit{
   constructor(private rutaActiva: ActivatedRoute) { }
   ngOnInit(): void {
     this._route.params.subscribe(params => {
-      console.log(params)
       this.category = params['id'];
       this._apiService.getQuestions(this.category).subscribe(data=>{
         this.numberOfQuestions = data.results.length;
