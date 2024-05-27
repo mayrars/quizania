@@ -1,13 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html{
+    min-height: 100%;
+}
 
 body{
-    height: 100vh;
     background: -moz-linear-gradient(180deg, rgba(62,85,200,1) 0%, rgba(252,70,107,1) 100%) no-repeat;
     background: -webkit-linear-gradient(180deg, rgba(62,85,200,1) 0%, rgba(252,70,107,1) 100%) no-repeat;
     background: rgb(62,85,200);
     background: linear-gradient(180deg, rgba(62,85,200,1) 0%, rgba(252,70,107,1) 100%) no-repeat;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3e55c8",endColorstr="#fc466b",GradientType=1) no-repeat;
     background-size: cover;
+    height: 100%;
 }
