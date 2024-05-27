@@ -1,8 +1,17 @@
 <div class="container mx-auto px-4 py-5 mt-4">
     <div class="flex flex-col items-center justify-center h-screen">
         <img src="./assets/quizania.svg" class="logo">    
+        <div class="lg:md:container-md lg:md:mx-auto sm:container-sm">
+            <p class="text-2xl font-bold mt-10 mb-10 text-white">Difficulty level:</p>
+            <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Choose level</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
         <p class="text-2xl font-bold mt-10 mb-10 text-white">Select a category to start:</p>
-        <div class="grid grid-cols-5 gap-6">
+        <div class="grid grid-cols-6 gap-6">
             @for (category of categories; track $index) {
                 <a routerLink="./category/{{category.id}}" class="text-center shadow-xl hover_button text-white font-bold py-6 px-8 rounded custom-card" style="background: {{category.color}};">
                     <img src="./assets/icons/{{category.icon}}.svg" width="50" height="50" class="mx-auto mb-2">

@@ -1,4 +1,4 @@
-import { afterNextRender, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { ICategories } from '../../models/categories.model';
