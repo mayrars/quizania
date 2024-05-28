@@ -1,24 +1,50 @@
 <div class="container mx-auto px-4 py-5 mt-4">
     <div class="flex flex-col items-center justify-center h-screen">
         <img src="./assets/quizania.svg" class="logo">    
-        <div class="lg:md:container-md lg:md:mx-auto sm:container-sm">
-            <p class="text-2xl font-bold mt-10 mb-10 text-white">Difficulty level:</p>
-            <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose level</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-        </div>
-        <p class="text-2xl font-bold mt-10 mb-10 text-white">Select a category to start:</p>
-        <div class="grid grid-cols-6 gap-6">
-            @for (category of categories; track $index) {
-                <a routerLink="./category/{{category.id}}" class="text-center shadow-xl hover_button text-white font-bold py-6 px-8 rounded custom-card" style="background: {{category.color}};">
-                    <img src="./assets/icons/{{category.icon}}.svg" width="50" height="50" class="mx-auto mb-2">
-                    <p class="text-center text-2xl title">{{category.name}}</p>
-                </a>
-            }
-        </div>
+        <form [formGroup]="initForm" novalidate (submit)="onSubmit()">
+            <div class="lg:md:container-md lg:md:mx-auto sm:container-sm">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="">
+                        <p class="text-sm font-bold mt-10 mb-2 text-white">Difficulty level:</p>
+                        <select id="levelQuestions" name="levelQuestions" [ngClass]="{'bg-red-100 border border-red-500 text-red-900': hasErrors('levelQuestions','required')}"  required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="levelQuestions">
+                            <option value="" selected>Choose level</option>
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                        @if (hasErrors('levelQuestions','required')) {
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">You need to select a level</p>
+                        }
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold mt-10 mb-2 text-white">Select Type:</p>
+                        <select id="typeQuestions" name="typeQuestions" [ngClass]="{'bg-red-100 border border-red-500 text-red-900': hasErrors('typeQuestions','required')}" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="typeQuestions">
+                            <option value="" selected>Choose Type</option>
+                            <option value="multiple">Multiple choice</option>
+                            <option value="boolean">True/False</option>
+                        </select>
+                        @if (hasErrors('typeQuestions','required')) {
+                            <p class="mt-2 text-sm text-red-600 dark:text-red-500">You need to select a type</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <p class="text-2xl font-bold mt-10 mb-10 text-white">Select a category to start:</p>
+            <div class="grid grid-cols-6 gap-6">
+                @for (category of categories; track $index) {
+                    <input type="radio" id="category-{{$index}}" name="category" value="{{category.id}}" class="hidden peer" required style="background: {{category.color}};"/>
+                    <label for="category-{{$index}}" class="flex font-bold shadow-xl inline-flex items-center justify-between w-full p-5 text-white rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 hover_button input-content" style="background: {{category.color}};">                           
+                        <div class="block">
+                            <img src="./assets/icons/{{category.icon}}.svg" width="50" height="50" class="mx-auto mb-2">
+                            <p class="text-center text-2xl title">{{category.name}}</p>
+                        </div>
+                        <svg class="w-5 h-5 ms-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                        </svg>
+                    </label>
+                }
+            </div>
+        </form>
     </div>
 </div>
     
