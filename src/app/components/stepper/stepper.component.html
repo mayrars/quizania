@@ -2,10 +2,10 @@
     <form class="absolute top-[6.25rem] rounded-lg bg-neutral-white py-8 px-6 mx-5 xl:flex xl:w-[65%] xl:p-7">
         <div class="container mx-auto px-4 py-5 mt-4">
             <ol class="items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0 rtl:space-x-reverse flex justify-center ">
-                @for (question of questions; track $index) {
+                @for (question of questions; track question; let  i = $index) {
                     <li class="flex items-center text-blue-800 dark:text-blue-500 space-x-2.5 rtl:space-x-reverse">
                         <span class="flex items-center justify-center w-8 h-8 border border-blue-800 rounded-full shrink-0 dark:border-blue-800">
-                            {{$index+1}}
+                            {{i+1}}
                         </span>
                     </li>
                 }            
@@ -13,6 +13,8 @@
             @for (question of questions; track $index) {
                 <div class="xl:flex xl:flex-col xl:justify-between mx-auto xl:mt-10 bg-white absolute p-4 rounded-lg shadow-md w-full h-full">   
                     <h1 class="text-2xl mb-2 font-bold xl:text-3xl">{{question.question}}</h1>
+
+                    <div class="flex flex-col gap-4"></div>
                 </div>
             }
         </div>
