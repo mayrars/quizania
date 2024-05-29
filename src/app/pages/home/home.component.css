@@ -3,33 +3,22 @@
     width: 450px;
     height:100px;
 }
-.hover_button{    
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-    display: inline-block;
+.custom-button{
+    border-radius: 30px;    
+    box-shadow: inset 0px 7px 16px rgba(0, 0, 0, .1);
+    opacity: .6;
 }
-.hover_button:hover{
-    box-shadow: 0 0 30px 0 transparentize(#dd6d84, 0.5);
-    animation:transition(all 0.2s ease-out);
+.radioelement:hover + label,
+.radioelement:checked + label{
+    background-color: #084897!important;
+    color: white;
+    box-shadow: inset 11px 12px 15px rgba(255, 255, 255, .2)!important;
+    opacity: 1;
 }
-.hover_button::after {
-    content: "";
-    background: #ffaf01; /* color de fondo hover */
-    position: absolute;
-    z-index: -1;
-    padding: 16px 20px;
-    display: block;
-    left: -20%;
-    right: -20%;
-    top: 0;
-    bottom: 0;
-    transform: skewX(-45deg) scale(0, 1);
-    transition: all 0.3s ease;
-  }
-.hover_button:hover::after {
-    transition: all 0.3s ease-out;
-    transform: skewX(-45deg) scale(1, 1);
+.input-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .wrapper {
   width: 90%;
@@ -63,7 +52,7 @@
     cursor: pointer;
     border: 0;
     background: radial-gradient(#fdcf3b 50%, #d88a40 85%);
-    color: #c66e16;
+    color: #e70e5e;
     text-transform: uppercase;
     font-size: 1.8em;
     letter-spacing: 0.1em;
@@ -75,5 +64,8 @@
 @media screen and (max-width: 768px) {
     .logo{
         width: 200px;
+    }
+    .custom-button p{
+        font-size: 20px;
     }
 }

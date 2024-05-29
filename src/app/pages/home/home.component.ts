@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     this.initForm = this.formBuilder.group({
       levelQuestions: ['',[Validators.required]],
       typeQuestions: ['',[Validators.required]],
+      categoryQuestions: ['',[Validators.required]],
     })
   }
   ngOnInit(): void {    
@@ -39,5 +40,14 @@ export class HomeComponent implements OnInit {
   hasErrors(controlName: string,errorType: string){
     return this.initForm.get(controlName)?.hasError(errorType) && this.initForm.get(controlName)?.touched
   }
-  onSubmit(){}
+  onSubmit(event: Event){
+    event.preventDefault();
+    if(!this.initForm.valid)
+      alert("You need to select level, type and category of questions")
+    else{
+      this._apiService.getQuestions(9,1).subscribe(data=>{
+        console.log(data)
+      })
+    }
+  }
 }
