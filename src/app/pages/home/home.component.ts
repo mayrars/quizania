@@ -4,10 +4,12 @@ import { ApiService } from '../../services/api.service';
 import { ICategories } from '../../models/categories.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { CardQuestionComponent } from '../../components/card-question/card-question.component';
+import { IQuestion } from '../../models/question.model';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink,ReactiveFormsModule, NgClass],
+  imports: [RouterLink,ReactiveFormsModule, NgClass, CardQuestionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -15,6 +17,7 @@ export class HomeComponent implements OnInit {
   initForm!: FormGroup
   private _apiService = inject(ApiService);
   categories: ICategories[] = [];
+  question!: IQuestion
   constructor(private formBuilder: FormBuilder){
     this.initForm = this.formBuilder.group({
       levelQuestions: ['',[Validators.required]],
@@ -33,6 +36,9 @@ export class HomeComponent implements OnInit {
         }
       })
     })
+    this._apiService.getQuestions(9,1).subscribe(data=>{
+      this.question = data.results[0]
+    })
   }
   getRandomNumber(min:number, max:number) {
     return Math.random() * (max - min) + min
@@ -41,13 +47,9 @@ export class HomeComponent implements OnInit {
     return this.initForm.get(controlName)?.hasError(errorType) && this.initForm.get(controlName)?.touched
   }
   onSubmit(event: Event){
-    event.preventDefault();
-    if(!this.initForm.valid)
+    event.preventDefault();  
+    if(!this.initForm.valid){
       alert("You need to select level, type and category of questions")
-    else{
-      this._apiService.getQuestions(9,1).subscribe(data=>{
-        console.log(data)
-      })
     }
   }
 }
