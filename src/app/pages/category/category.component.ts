@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepperComponent } from '../../components/stepper/stepper.component';
+import { CardQuestionComponent } from '../../components/card-question/card-question.component';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [StepperComponent],
+  imports: [StepperComponent, CardQuestionComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })

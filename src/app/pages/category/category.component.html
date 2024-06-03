@@ -1,3 +1,16 @@
-<div class="container mx-auto px-4 py-5 mt-4">
-    <app-stepper [questions]="questions"></app-stepper>
-</div>
+<section class="h-screen flex justify-center items-center flex-col">
+    <ol class="items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0 rtl:space-x-reverse flex justify-center mt-10">
+        @for (question of questions; track question; let  i = $index) {
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse ">
+                <span class="flex items-center justify-center w-8 h-8 border rounded-full shrink-0 {{(i==0) ? 'bg-blue-800 text-white' : 'bg-blue-300 text-blue-500'}}">
+                    {{i+1}}
+                </span>
+            </li>
+        }            
+    </ol> 
+    <div class="container mx-auto px-4 py-5 mt-4 relative h-5/6 flex justify-center items-center">
+        @for (item of questions; track $index) {
+            <app-card-question [question]="item" class="absolute w-full z-{{$index}} {{($index==0) ? 'visible' : 'hidden'}}"></app-card-question>
+        }
+    </div>
+</section>

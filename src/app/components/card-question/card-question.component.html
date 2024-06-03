@@ -1,12 +1,25 @@
+<form [formGroup]="questionsForm" (submit)="submitAnswer($event)" class="flex justify-center">
 @if(question.type=='multiple'){
     <div class="bg-white rounded-lg p-8 lg:md:w-3/4 w-full">
         <h1 class="mb-5">{{question.question}}</h1>
         @for (item of question.incorrect_answers; track $index) {
             @if(rand==$index){
-                <div class="mb-2"><input type="radio" name="answer" id="example-{{$index}}" value="{{question.correct_answer}}" class="mr-4">{{question.correct_answer}}</div>
+                <div class="mb-2">
+                    <input type="radio" name="answer" id="answer-{{$index}}" value="{{question.correct_answer}}" class="mr-4" formControlName="answer">{{question.correct_answer}}
+                </div>
+                <div class="mb-2">
+                    <input type="radio" name="answer" id="answer-{{$index+1}}" value="{{item}}" class="mr-4" formControlName="answer">{{item}}
+                </div>
+            }@else{
+                <div class="mb-2">
+                    <input type="radio" name="answer" id="answer-{{$index}}" value="{{item}}" class="mr-4" formControlName="answer">{{item}}
+                </div>
             }
-            <div class="mb-2"><input type="radio" name="answer" id="example-{{$index}}" value="{{item}}" class="mr-4">{{item}}</div>
         }
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="submitAnswer()">Validate</button>
+        @if (hasErrors('categoryQuestions','required')) {
+            <p class="mt-2 text-sm text-red-600 dark:text-red-500">You need to select an answer</p>
+        }
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6" type="submit">Validate</button>
     </div>
 }
+</form>
