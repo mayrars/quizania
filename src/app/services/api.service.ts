@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
   private _http = inject(HttpClient);
   private baseURL = 'https://opentdb.com/'
+
   getCategories():Observable<any> {
     return this._http.get(`${this.baseURL}/api_category.php`);
   }
