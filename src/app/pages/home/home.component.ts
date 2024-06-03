@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, NgZone, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { ICategories } from '../../models/categories.model';
@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgClass } from '@angular/common';
 import { CardQuestionComponent } from '../../components/card-question/card-question.component';
 import { IQuestion } from '../../models/question.model';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   private _apiService = inject(ApiService);
   categories: ICategories[] = [];
   question!: IQuestion
-  constructor(private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder, private ngZone: NgZone, private router: Router){
     this.initForm = this.formBuilder.group({
       levelQuestions: ['',[Validators.required]],
       typeQuestions: ['',[Validators.required]],
@@ -50,6 +51,8 @@ export class HomeComponent implements OnInit {
     event.preventDefault();  
     if(!this.initForm.valid){
       alert("You need to select level, type and category of questions")
+    }else{
+      this.router.navigate(['/category',this.initForm.value.categoryQuestions]);
     }
   }
 }
