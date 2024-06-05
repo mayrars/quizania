@@ -7,6 +7,7 @@ import { NgClass } from '@angular/common';
 import { CardQuestionComponent } from '../../components/card-question/card-question.component';
 import { IQuestion } from '../../models/question.model';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   private _apiService = inject(ApiService);
   categories: ICategories[] = [];
   question!: IQuestion
-  constructor(private formBuilder: FormBuilder, private ngZone: NgZone, private router: Router){
+  constructor(private formBuilder: FormBuilder, private ngZone: NgZone, private router: Router, private http:HttpClient){
     this.initForm = this.formBuilder.group({
       levelQuestions: ['',[Validators.required]],
       typeQuestions: ['',[Validators.required]],
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit {
         }
       })
     })
-    this._apiService.getQuestions(9,1).subscribe(data=>{
+    this._apiService.getQuestions(9,1,'easy','multiple').subscribe(data=>{
       this.question = data.results[0]
     })
   }
@@ -52,7 +53,7 @@ export class HomeComponent implements OnInit {
     if(!this.initForm.valid){
       alert("You need to select level, type and category of questions")
     }else{
-      this.router.navigate(['/category',this.initForm.value.categoryQuestions]);
+      this.router.navigate(['/category',this.initForm.value.categoryQuestions],{queryParams:{type:this.initForm.value.typeQuestions,level:this.initForm.value.levelQuestions}});
     }
   }
 }
