@@ -1,6 +1,6 @@
 <form [formGroup]="questionsForm" (submit)="submitAnswer($event)" class="flex justify-center">
 @if(question.type=='multiple'){
-    <div class="bg-white rounded-lg p-8 lg:md:w-3/4 w-full">
+    <div class="bg-white p-8 lg:md:w-3/4 w-full customcard">
         <h1 class="mb-5">{{question.question}}</h1>
         @for (item of question.incorrect_answers; track $index) {
             @if(rand==$index){
