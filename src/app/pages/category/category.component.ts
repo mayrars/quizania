@@ -54,12 +54,12 @@ export class CategoryComponent implements OnInit{
   nextQuestion(){
     if(this.currentQuestion < this.numberOfQuestions-1){
       this.currentQuestion++;
+
     }
     console.log(this.currentQuestion)
   }
   //Go to previous question
   previousQuestion(){
-    console.log(this.numberOfQuestions)
     if(this.currentQuestion > 0){
       this.currentQuestion--;
     }
