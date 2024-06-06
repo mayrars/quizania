@@ -10,7 +10,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   styleUrl: './card-question.component.css'
 })
 export class CardQuestionComponent{
-  @Input() hidden!: number;
   @Input() question!: IQuestion;
   elements!: number
   rand = this.getRandomInt(0,3)
