@@ -1,3 +1,16 @@
 .customcard{
     border-radius: 30px;
+    font-size: 30px;
+}
+.customcard h1{
+    font-size: 40px;
+}
+@media (max-width: 768px) {
+    .customcard{
+        border-radius: 10px;
+        font-size: 20px;
+    }
+    .customcard h1{
+        font-size: 30px;
+    }
 }
