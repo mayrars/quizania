@@ -65,4 +65,7 @@ export class CategoryComponent implements OnInit{
     }
     console.log(this.currentQuestion)
   }
+  handleResponse(event: Event){
+    console.log(event)
+  }
 }

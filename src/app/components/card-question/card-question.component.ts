@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IQuestion } from '../../models/question.model';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-card-question',
@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 })
 export class CardQuestionComponent{
   @Input() question!: IQuestion;
+  @Output() responseEvent = new EventEmitter<boolean>();
   elements!: number
   rand = this.getRandomInt(0,3)
   questionResAnswer = ''
@@ -38,9 +39,12 @@ export class CardQuestionComponent{
     }else{
       if (this.questionsForm.value.answer == this.question.correct_answer) {
         this.questionResAnswer = 'Correct answer'
+        this.responseEvent.emit(true)
       } else {
         this.questionResAnswer = 'Wrong answer'
+        this.responseEvent.emit(false)
       }
+      this.formBuilder.control('answer').disable()
       alert(this.questionResAnswer)
     }
   }
