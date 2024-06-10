@@ -11,7 +11,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class CardQuestionComponent{
   @Input() question!: IQuestion;
-  @Output() responseEvent = new EventEmitter<boolean>();
+  @Output() 
+  responseEvent = new EventEmitter<boolean>();
   elements!: number
   rand = this.getRandomInt(0,3)
   questionResAnswer = ''
