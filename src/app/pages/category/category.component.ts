@@ -21,6 +21,7 @@ export class CategoryComponent implements OnInit{
   currentQuestion: number = 0;
   questions: any[] = [];
   numberOfQuestions: number = 0;
+  answersInfo:any[] =[];
   constructor(private rutaActiva: ActivatedRoute) { }
   ngOnInit(): void {
     this._route.params.subscribe(params => {
@@ -45,27 +46,34 @@ export class CategoryComponent implements OnInit{
   convert(str: string) {
     str = str.replace(/&amp;/g, "&");
     str = str.replace(/&gt;/g, ">");
-    str = str.replace(/&lt;</g, "<");
+    str = str.replace(/&lt;/g, "<");
     str = str.replace(/&quot;/g, "\"");
-    str = str.replace(/&apos;'/g, "'");
+    str = str.replace(/&apos;/g, "'");
+    str = str.replace(/&#039;/g, "'");
     return str;
   }
   //Go to next question
   nextQuestion(){
-    if(this.currentQuestion < this.numberOfQuestions-1){
-      this.currentQuestion++;
-
+    if(this.answersInfo[this.currentQuestion]==='' || this.answersInfo[this.currentQuestion]===null || (typeof this.answersInfo[this.currentQuestion]==='undefined')){
+      alert('please respond and validate your answer')
+    }else{
+      if(this.currentQuestion < this.numberOfQuestions-1){
+        this.currentQuestion++;
+      }
     }
-    console.log(this.currentQuestion)
   }
   //Go to previous question
   previousQuestion(){
-    if(this.currentQuestion > 0){
-      this.currentQuestion--;
+    if(this.answersInfo[this.currentQuestion]==='' || this.answersInfo[this.currentQuestion]===null || (typeof this.answersInfo[this.currentQuestion]==='undefined')){
+      alert('please respond and validate your answer')
+    }else{
+      if(this.currentQuestion > 0){
+        this.currentQuestion--;
+      }
+      console.log(this.currentQuestion)
     }
-    console.log(this.currentQuestion)
   }
-  handleResponse(event: Event){
-    console.log(event)
+  addAnswer(answer:any){
+    this.answersInfo.push(answer);
   }
 }

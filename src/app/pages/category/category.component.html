@@ -10,7 +10,7 @@
     </ol> 
     <div class="container mx-auto px-4 py-5 mt-4 relative h-5/6 flex justify-center items-center">
         @for (item of questions; track $index) {
-            <app-card-question [question]="item" class="absolute w-full z-{{questions.length-$index}} {{currentQuestion==$index ? 'visible' : 'invisible'}}"></app-card-question>
+            <app-card-question [question]="item" class="absolute w-full z-{{questions.length-$index}} {{currentQuestion==$index ? 'visible' : 'invisible'}}" (responseEvent)="addAnswer($event)"></app-card-question>
         }
     </div>
     <div class="flex mb-8 mt-8">
