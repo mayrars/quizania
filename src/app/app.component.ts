@@ -1,15 +1,16 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { initFlowbite } from 'flowbite';
+import { initFlowbite, Modal } from 'flowbite';
 import { HomeComponent } from "./pages/home/home.component";
+import { ModalComponent } from './components/modal/modal.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, HomeComponent]
+    imports: [RouterOutlet, HomeComponent,ModalComponent]
 })
 export class AppComponent implements OnInit{
   title = 'quizania';
