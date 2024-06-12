@@ -1,20 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ComponentRef, inject, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepperComponent } from '../../components/stepper/stepper.component';
 import { CardQuestionComponent } from '../../components/card-question/card-question.component';
 import { Difficulty, IQuestion } from '../../models/question.model';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [StepperComponent, CardQuestionComponent],
+  imports: [StepperComponent, CardQuestionComponent, ModalComponent],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
 export class CategoryComponent implements OnInit{
   private _apiService = inject(ApiService);
   private _route = inject(ActivatedRoute)
+  modalData!:ComponentRef<ModalComponent>
   category!: number;
   typeQuestions!: string | null;
   levelQuestions!: string | null;
@@ -70,10 +72,27 @@ export class CategoryComponent implements OnInit{
       if(this.currentQuestion > 0){
         this.currentQuestion--;
       }
-      console.log(this.currentQuestion)
     }
   }
   addAnswer(answer:any){
     this.answersInfo.push(answer);
+  }
+  resultsQuestion(){
+    //validate if all questions have been answered
+    if(this.answersInfo.length!==this.numberOfQuestions){
+      alert('Please respond and validate all your answers')
+    }else{
+      //Return number of correct answers
+      let correctAnswers:number = 0;
+      let incorrectAnswers:number = 0;
+      for(let i=0;i<this.answersInfo.length;i++){
+        if(this.answersInfo[i]===true){
+          correctAnswers++;
+        }
+        incorrectAnswers++
+      }
+      //show alert with correct ans
+      alert('You have '+correctAnswers+' correct answers')
+    }
   }
 }
