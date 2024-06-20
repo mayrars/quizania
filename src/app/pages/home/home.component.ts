@@ -1,4 +1,4 @@
-import { Component, inject, NgZone, OnInit } from '@angular/core';
+import { Component, ContentChildren, inject, NgZone, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { ICategories } from '../../models/categories.model';
@@ -8,14 +8,16 @@ import { CardQuestionComponent } from '../../components/card-question/card-quest
 import { IQuestion } from '../../models/question.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ModalComponent } from '../../components/modal/modal.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink,ReactiveFormsModule, NgClass, CardQuestionComponent],
+  imports: [RouterLink,ReactiveFormsModule, NgClass, CardQuestionComponent,ModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(ModalComponent) modal?: ModalComponent;
   initForm!: FormGroup
   private _apiService = inject(ApiService);
   categories: ICategories[] = [];
@@ -51,9 +53,10 @@ export class HomeComponent implements OnInit {
   onSubmit(event: Event){
     event.preventDefault();  
     if(!this.initForm.valid){
-      alert("You need to select level, type and category of questions")
+      this.modal?.open("Error","You need to select level, type and category of questions");
     }else{
       this.router.navigate(['/category',this.initForm.value.categoryQuestions],{queryParams:{type:this.initForm.value.typeQuestions,level:this.initForm.value.levelQuestions}});
     }
   }
+  
 }

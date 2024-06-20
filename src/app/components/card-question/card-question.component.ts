@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class CardQuestionComponent{
   @Input() question!: IQuestion;
   @Output() 
-  responseEvent = new EventEmitter<boolean>();
+  responseEvent = new EventEmitter<boolean | null>();
   elements!: number
   rand = this.getRandomInt(0,3)
   questionResAnswer = ''
@@ -36,7 +36,7 @@ export class CardQuestionComponent{
   submitAnswer(event:Event) {
     event.preventDefault();
     if(!this.questionsForm.valid) {
-      alert("Por favor seleccione una respuesta")
+      this.responseEvent.emit(null)
     }else{
       if (this.questionsForm.value.answer == this.question.correct_answer) {
         this.questionResAnswer = 'Correct answer'
@@ -46,7 +46,6 @@ export class CardQuestionComponent{
         this.responseEvent.emit(false)
       }
       this.formBuilder.control('answer').disable()
-      alert(this.questionResAnswer)
     }
   }
 }

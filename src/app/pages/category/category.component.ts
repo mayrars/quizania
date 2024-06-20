@@ -1,4 +1,4 @@
-import { Component, ComponentRef, inject, OnInit } from '@angular/core';
+import { Component, ComponentRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { StepperComponent } from '../../components/stepper/stepper.component';
@@ -14,6 +14,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
   styleUrl: './category.component.css'
 })
 export class CategoryComponent implements OnInit{
+  @ViewChild(ModalComponent) modal?: ModalComponent;
   private _apiService = inject(ApiService);
   private _route = inject(ActivatedRoute)
   modalData!:ComponentRef<ModalComponent>
@@ -57,7 +58,7 @@ export class CategoryComponent implements OnInit{
   //Go to next question
   nextQuestion(){
     if(this.answersInfo[this.currentQuestion]==='' || this.answersInfo[this.currentQuestion]===null || (typeof this.answersInfo[this.currentQuestion]==='undefined')){
-      alert('please respond and validate your answer')
+      this.modal?.open("Error","Please respond and validate your answer");
     }else{
       if(this.currentQuestion < this.numberOfQuestions-1){
         this.currentQuestion++;
@@ -67,7 +68,7 @@ export class CategoryComponent implements OnInit{
   //Go to previous question
   previousQuestion(){
     if(this.answersInfo[this.currentQuestion]==='' || this.answersInfo[this.currentQuestion]===null || (typeof this.answersInfo[this.currentQuestion]==='undefined')){
-      alert('please respond and validate your answer')
+      this.modal?.open("Error","Please respond and validate your answer");
     }else{
       if(this.currentQuestion > 0){
         this.currentQuestion--;
@@ -75,12 +76,20 @@ export class CategoryComponent implements OnInit{
     }
   }
   addAnswer(answer:any){
-    this.answersInfo.push(answer);
+    if(answer===null)
+      this.modal?.open("Error","You need to answer the question");
+    else{
+      this.answersInfo.push(answer);
+      if(answer==false)
+        this.modal?.open("Error","Wrong answer");
+      else
+        this.modal?.open("Correct","Correct answer");
+    }    
   }
   resultsQuestion(){
     //validate if all questions have been answered
     if(this.answersInfo.length!==this.numberOfQuestions){
-      alert('Please respond and validate all your answers')
+      this.modal?.open("Error","Please respond and validate all your answers");
     }else{
       //Return number of correct answers
       let correctAnswers:number = 0;
@@ -92,7 +101,7 @@ export class CategoryComponent implements OnInit{
         incorrectAnswers++
       }
       //show alert with correct ans
-      alert('You have '+correctAnswers+' correct answers')
+      this.modal?.open("Correct answer",'You have '+correctAnswers+' correct answers');
     }
   }
 }
